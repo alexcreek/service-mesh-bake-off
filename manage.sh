@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$#" -lt 1 ]]; then
-  echo "usage: $(basename "$0") istio|linkerd [destroy|shutdown]"
+  echo "usage: $(basename "$0") istio|linkerd [destroy|shutdown|stop|start|info]"
   exit 1
 fi
 
