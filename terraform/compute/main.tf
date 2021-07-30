@@ -13,6 +13,10 @@ resource "aws_lightsail_instance" "this" {
   blueprint_id      = "ubuntu_20_04"
   bundle_id         = "medium_2_0"
   key_pair_name     = "id_rsa"
+  user_data         = templatefile("${path.module}/userdata.tpl", {
+    os          = "xUbuntu_20.04",
+    k8s_version = "1.21"
+  })
 
   tags = {
     component    = var.component
