@@ -1,7 +1,6 @@
 module "node" {
   source = "./compute"
 
-  instances = 2
   component = "node"
   mesh_name = var.mesh_name
 }
