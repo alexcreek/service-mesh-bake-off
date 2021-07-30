@@ -19,3 +19,11 @@ output "node_ips" {
 output "control_plane_ips" {
   value = module.control_plane.instance_ip
 }
+
+output "node_names" {
+  value = module.node.instance_name
+}
+
+output "control_plane_names" {
+  value = module.control_plane.instance_name
+}

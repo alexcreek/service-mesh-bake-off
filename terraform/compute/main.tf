@@ -24,6 +24,10 @@ resource "aws_lightsail_instance" "this" {
   }
 }
 
+output "instance_name" {
+  value = aws_lightsail_instance.this[*].name
+}
+
 output "instance_ip" {
   value = aws_lightsail_instance.this[*].public_ip_address
 }
