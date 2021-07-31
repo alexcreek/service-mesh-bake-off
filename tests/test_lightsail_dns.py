@@ -1,15 +1,16 @@
 import pytest
+import dnsmgr
 
-def test_create_a_record():
+def test_creating_a_record():
     assert False
 
-def test_update_a_record():
+def test_updating_a_record():
     assert False
 
-def test_delete_a_record():
+def test_deleting_a_record():
     assert False
 
-def test_read_stdin_from_a_pipe():
+def test_reading_valid_json_from_a_pipe():
     assert False
 
 def test_zone_not_found():
