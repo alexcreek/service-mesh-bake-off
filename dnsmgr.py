@@ -5,17 +5,16 @@ import argparse
 import json
 import boto3
 
-# accept piped stdin
-# parse json
 # create_record(zone, name, ip)
 #   input['control_plane_names'][0]['value']
 #   input['control_plane_ips'][0]['value']
 # delete_record(zone, name)
-#
-def create_record():
-    pass
 
 def collect_input():
+    """
+    Reads piped json from stdin
+    :return cooked: dict of parsed json
+    """
     raw = None
     for line in fileinput.input(sys.argv[2:]):
         raw = line
@@ -27,18 +26,30 @@ def collect_input():
         sys.exit(1)
     return cooked
 
+def create_records(data):
+    """
+    Upserts dns records
+    :param data: dict containing hostnames and ips
+    """
+
+def delete_records(data):
+    """
+    Deletes dns records
+    :param data: dict containing hostnames and ips
+    """
+
 def main():
-    parser = argparse.ArgumentParser(description='Manage lightsail dns records')
-    parser.add_argument('-c', '--create', action='store_true', help='create a record')
-    parser.add_argument('-d', '--delete', action='store_true', help='delete a record')
+    parser = argparse.ArgumentParser(description="Manage lightsail dns records using piped tf output")
+    parser.add_argument('-c', '--create', action='store_true', help='create records')
+    parser.add_argument('-d', '--delete', action='store_true', help='delete records')
     args = parser.parse_args()
 
-    data = collect_input()
-    print(data)
     if args.create:
-        create_record()
+        data = collect_input()
+        create_records(data)
     if args.delete:
-        print(args.delete)
+        data = collect_input()
+        delete_records(data)
 
 
 if __name__ == '__main__':
