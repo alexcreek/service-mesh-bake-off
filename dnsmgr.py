@@ -26,13 +26,40 @@ def collect_input():
         sys.exit(1)
     return cooked
 
-def create_records(data):
+def create_records(data, zone='alexcreek.dev'):
     """
     Upserts dns records
     :param data: dict containing hostnames and ips
+    :return boolean: True for success, False for failure
     """
+    client = boto3.client('lightsail')
+    for control_in data:
+        resp = client.create_domain_entry(
+            domainName = zone,
+            domainEntry = {
+                name = name + zone,
+                target = ip,
+                type = 'A'
+            }
+    
+        try:
+            resp['operation']['status']
+        except KeyError as e:
+            print('ERROR: Something went wrong. Invalid response received')
+            return False
 
-def delete_records(data):
+        if 'Succeeded' in resp['operation']['status']:
+            print('Record successfully created'
+        else
+            print(f'ERROR: Record failed to create. Status is {resp['operation']['status']}'
+            return False
+    return True
+            
+
+
+    )
+
+def delete_records(data, zone='alexcreek.dev'):
     """
     Deletes dns records
     :param data: dict containing hostnames and ips

@@ -2,8 +2,24 @@ from io import StringIO
 import pytest
 import dnsmgr
 
-def test_creating_a_record():
-    assert False
+class MockClient:
+    @staticmethod
+    def create_domain_entry(**kwargs):
+        domain_created_resp = {}
+        return  domain_created_resp
+
+    @staticmethod
+    def delete_domain_entry(**kwargs):
+        domain_deleted_resp = {}
+        return  domain_deleted_resp
+
+def test_creating_a_record(monkeypatch):
+    def mock_client(*args):
+        return MockClient()
+
+    monkeypatch.setattr(dnsmgr.boto3, 'client', mock_client)
+
+    assert dnsmgr.create_records('json_input')
 
 def test_updating_a_record():
     assert False
